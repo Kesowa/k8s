@@ -15,10 +15,10 @@ spec:
   ingressClassName: alb
   tls:
   - hosts:
-    - cog-aws.kesowa.com
+    - cog-aru.kesowa.com
     secretName: kesowa-tls
   rules:
-  - host: cog-aws.kesowa.com
+  - host: cog-aru.kesowa.com
     http:
       paths:
       - path: /
