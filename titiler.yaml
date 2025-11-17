@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: titiler
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: titiler
+  template:
+    metadata:
+      labels:
+        app: titiler
+    spec:
+      containers:
+      - name: titiler
+        image: ghcr.io/developmentseed/titiler@sha256:dc8bf47066dba1d23ffc3dcb87643bda73a9107f7bcc78e02f947a5808ebeb8f
+        env:
+          - name: PORT
+            value: "8080"
+          - name: WORKERS_PER_CORE
+            value: "1"
+          - name: MAX_WORKERS
+            value: "1"
+        ports:
+          - name: web
+            containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: titiler
+spec:
+  ports:
+    - name: web
+      port: 8080
+      targetPort: web
+  selector:
+    app: titiler

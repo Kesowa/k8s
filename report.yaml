@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: reportgen
+spec:
+  replicas: 0
+  selector:
+    matchLabels:
+      app: reportgen
+  template:
+    metadata:
+      labels:
+        app: reportgen
+    spec:
+      containers:
+      - name: reportgen
+        image: 543620115200.dkr.ecr.ap-south-1.amazonaws.com/report-gen:1.0.0
+        resources:
+          requests:
+            memory: "1Gi"   # 2 GB of memory requested
+            cpu: "0.5"        # 1 vCPU requested
+          limits:
+            memory: "2Gi"   # 4 GB of memory limit
+            cpu: "1"        # 2 vCPUs limit
+        envFrom:
+          - configMapRef:
+              name: report-config

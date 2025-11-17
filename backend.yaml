@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      containers:
+      - name: backend
+        image: 543620115200.dkr.ecr.ap-south-1.amazonaws.com/aru-server:2.0.18
+        resources:
+          requests:
+            memory: "1.0Gi"   # 2 GB of memory requested
+            cpu: "0.50"        # 1 vCPU requested
+          limits:
+            memory: "1Gi"   # 4 GB of memory limit
+            cpu: "0.5"        # 2 vCPUs limit
+        envFrom:
+          - configMapRef:
+              name: backend-config
+        ports:
+          - name: web
+            containerPort: 5011
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend
+spec:
+  ports:
+    - name: web
+      port: 80
+      targetPort: web
+  selector:
+    app: backend

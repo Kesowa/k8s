@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: transcoder
+spec:
+  replicas: 0
+  selector:
+    matchLabels:
+      app: transcoder
+  template:
+    metadata:
+      labels:
+        app: transcoder
+    spec:
+      containers:
+      - name: transcoder
+        image: 543620115200.dkr.ecr.ap-south-1.amazonaws.com/aru-vod:1.1.5
+        resources:
+          requests:
+            memory: "2Gi"   # 2 GB of memory requested
+            cpu: "2"        # 1 vCPU requested
+          limits:
+            memory: "4Gi"   # 4 GB of memory limit
+            cpu: "4"        # 2 vCPUs limit
+        envFrom:
+          - configMapRef:
+              name: vod-config

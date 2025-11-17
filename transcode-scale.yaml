@@ -1,0 +1,18 @@
+apiVersion: keda.sh/v1alpha1
+kind: ScaledObject
+metadata:
+  name: transcoder-scaler
+spec:
+  scaleTargetRef:
+    name: transcoder
+  minReplicaCount: 0
+  maxReplicaCount: 10
+  triggers:
+  - type: rabbitmq
+    metadata:
+      protocol: amqp
+      queueName: vod.transcode.req
+      host: amqp://rabbitmq.default.svc.cluster.local:5672
+      mode: QueueLength
+      value: "1"
+      activationValue: "0"

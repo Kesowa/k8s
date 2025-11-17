@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: decompressor
+spec:
+  replicas: 0
+  selector:
+    matchLabels:
+      app: decompressor
+  template:
+    metadata:
+      labels:
+        app: decompressor
+    spec:
+      containers:
+      - name: decompressor
+        image: 543620115200.dkr.ecr.ap-south-1.amazonaws.com/aru-zip:1.0.9
+        resources:
+          requests:
+            memory: "0.5Gi"   # 2 GB of memory requested
+            cpu: "0.5"        # 1 vCPU requested
+          limits:
+            memory: "1Gi"   # 4 GB of memory limit
+            cpu: "1"        # 2 vCPUs limit
+        envFrom:
+          - configMapRef:
+              name: zip-config

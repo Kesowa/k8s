@@ -1,0 +1,15 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "s3:GetObject"
+      ],
+      "Resource": [
+        "arn:aws:s3:::kesowa-static-data.s3.ap-south-1.amazonaws.com",
+        "arn:aws:s3:::kesowa-static-data.s3.ap-south-1.amazonaws.com/raster/*"
+      ]
+    }
+  ]
+}
