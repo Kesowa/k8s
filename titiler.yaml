@@ -14,14 +14,21 @@ spec:
     spec:
       containers:
       - name: titiler
-        image: ghcr.io/developmentseed/titiler@sha256:dc8bf47066dba1d23ffc3dcb87643bda73a9107f7bcc78e02f947a5808ebeb8f
+        image: ghcr.io/developmentseed/titiler@sha256:86d3caa383c6a44752f662f40701b163727226318ba4f3f370f0fe8f660ec69e
+        resources:
+          requests:
+            memory: "1.0Gi"   
+            cpu: "0.50"        
+          limits:
+            memory: "2Gi"   
+            cpu: "1.0"        
         env:
           - name: PORT
             value: "8080"
           - name: WORKERS_PER_CORE
-            value: "1"
+            value: "2"
           - name: MAX_WORKERS
-            value: "1"
+            value: "4"
         ports:
           - name: web
             containerPort: 8080
