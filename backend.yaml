@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: backend
-        image: 543620115200.dkr.ecr.ap-south-1.amazonaws.com/aru-server:2.0.18
+        image: 543620115200.dkr.ecr.ap-south-1.amazonaws.com/aru-server:2.0.19
         resources:
           requests:
             memory: "1.0Gi"   # 2 GB of memory requested
