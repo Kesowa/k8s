@@ -16,10 +16,17 @@ spec:
       - name: rabbitmq
         image: public.ecr.aws/docker/library/rabbitmq:4.2.0-management-alpine
         ports:
-          - containerPort: 5672
+          - name: amqp
+            containerPort: 5672
+          - name: management
+            containerPort: 15672
         env:
           - name: "RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS"
             value: "-rabbit consumer_timeout 86400000"
+          - name: RABBITMQ_DEFAULT_USER
+            value: "admin"
+          - name: RABBITMQ_DEFAULT_PASS
+            value: "admin123"
 ---
 apiVersion: v1
 kind: Service
