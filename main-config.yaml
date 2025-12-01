@@ -73,7 +73,7 @@ data:
     S3_ENDPOINT: "s3.amazonaws.com"
     S3_REGION: "ap-south-1"
     S3_PATH_STYLE: "false"
-    AMQP_ADDR: "amqp://rabbitmq:5672"
+    AMQP_ADDR: "amqp://admin:admin123@rabbitmq:5672"
     RUST_LOG: "debug"
 
 ---
@@ -89,7 +89,7 @@ data:
     S3_ENDPOINT: "s3.amazonaws.com"
     S3_REGION: "ap-south-1"
     S3_PATH_STYLE: "false"
-    AMQP_ADDR: "amqp://rabbitmq:5672"
+    AMQP_ADDR: "amqp://admin:admin123@rabbitmq:5672"
     RUST_LOG: "debug"
 ---
 
@@ -107,4 +107,4 @@ data:
     S3_ENDPOINT: "s3.amazonaws.com"
     S3_REGION: "ap-south-1"
     S3_PATH_STYLE: "false"
-    RABBITMQ_CONNECTION_STRING: "amqp://rabbitmq:5672"
+    RABBITMQ_CONNECTION_STRING: "amqp://admin:admin123@rabbitmq:5672"

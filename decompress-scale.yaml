@@ -12,7 +12,7 @@ spec:
     metadata:
       protocol: amqp
       queueName: file.decompress.req
-      host: amqp://rabbitmq.default.svc.cluster.local:5672
+      host: amqp://admin:admin123@rabbitmq.default.svc.cluster.local:5672
       mode: QueueLength
       value: "1"
       activationValue: "0"
