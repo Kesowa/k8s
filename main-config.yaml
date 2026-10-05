@@ -1,3 +1,12 @@
+# Non-secret configuration only.
+#
+# Every credential that used to live in this file now comes from Kubernetes
+# Secrets instead. See secrets.example.yaml and README.md.
+#
+# Do not add a password, key or connection string containing credentials to this
+# file. A ConfigMap is stored in plaintext and is readable by anyone with get
+# access on the namespace.
+---
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -12,12 +21,12 @@ data:
   VITE_INSTANCE: "aru"
   VITE_STATIC_URL: "https://cdn-aru.kesowa.com"
   VITE_API_URL: "https://api-aru.kesowa.com"
-  VITE_MAPBOX_API_KEY: "pk.eyJ1IjoibmVlbGR1dHRhMTkiLCJhIjoiY2tweG9mN3F4MThrNTJ4cDk0enVjcTN4dCJ9.uxa_h0rjqumTxFMI1QELKQ"
-  VITE_SITE_KEY: "6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"
-  VITE_SECRET_KEY: "6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe"
   VITE_VERSION: "v2.6.2"
-  VITE_OPENWEATHER_API_KEY: "b8960496135215b70955dea8ae85bb13"
-  VITE_GOOGLE_API_KEY: "AIzaSyCYWROYTFQ3XH4bhhLJnmJSV-0k9a-PHY8"
+  # VITE_MAPBOX_API_KEY, VITE_GOOGLE_API_KEY, VITE_OPENWEATHER_API_KEY and the
+  # reCAPTCHA keys come from the frontend-secrets Secret. Note that Vite inlines
+  # every VITE_* value into the browser bundle at build time, so these are
+  # public once built -- they are Secrets here to keep them out of git, and must
+  # additionally be restricted by URL/referrer at the provider.
 ---
 apiVersion: v1
 kind: ConfigMap
@@ -26,85 +35,59 @@ metadata:
 data:
   RATE_LIMIT: "true"
   PORT: "5011"
-  MONGODB_CONNECTION_STRING: "mongodb+srv://aruprod:arukesowa2024@aru-production.vzgrow5.mongodb.net/kesowa?retryWrites=true&w=majority&appName=ARU-PRODUCTION"
-  SMTP_PASSWORD: "26[w]]G4!:?-~f$"
   SMTP_USERNAME: "no-reply@kesowa.com"
   SMTP_SERVER: "outlook.office365.com"
   SMTP_PORT: "587"
-  MAP_KEY: "AIzaSyCYWROYTFQ3XH4bhhLJnmJSV-0k9a-PHY8"
   API_SERVER: "https://api-aru.kesowa.com"
   PUBLIC_SERVER: "https://aru.kesowa.com"
   CDN_URL: "https://cdn-aru.kesowa.com"
   TITILER_STATIC: "http://cdn-aru.kesowa.com"
   FTP_PORT: "5023"
   FTP_HOST_DEV: "0.0.0.0"
-  FTP_HOST_PROD: "203.163.247.161"
-  FTP_USERNAME: "kesowaFTP"
-  FTP_PASSWORD: "kes0wa1@3$"
   RESET_PASSWORD_TOKEN_EXPIRE: "3600"
-  SECRET_KEY: "w765bubQzvnYMW+8ctKV2f0ZLBG392pd"
   ARU_INSTANCE: "aru"
   LIVE_URL: "https://live-aru.kesowa.com"
-  RAZORPAY_KEY_ID: "rzp_test_VtDzR3wJWNZcmf"
-  RAZORPAY_KEY_SECRET: "fAnKwtZyoyBdKsb7fQ8j12KR"
-  RAZORPAY_HOOK_SECRET: "opookmlkmkif"
   TITILER_SERVER: "http://titiler:8080"
   MODE: "production"
   TITILER_PUBLIC: "https://cog-aru.kesowa.com"
   RTMP_PUBLIC: "rtmp://live-aru.kesowa.com:1935/stream"
-  LOGGER_URL: "http://13.204.12.225:3100"
+  LOGGER_URL: "http://loki.monitoring.svc.cluster.local:3100"
   AIML_SERVER: "http://host.docker.internal:8008"
-  RABBITMQ_CONNECTION_STRING: "amqp://admin:admin123@rabbitmq:5672"
-  S3_ACCESS_KEY: "AKIAX5ESIVMADNZ4LBJV"
-  S3_SECRET_KEY: "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"
   S3_BUCKET_NAME: "kesowa-static-data"
   S3_ENDPOINT: "s3.amazonaws.com"
-
+  S3_REGION: "ap-south-1"
 ---
-
 apiVersion: v1
 kind: ConfigMap
 metadata:
   name: zip-config
 data:
-    AWS_ACCESS_KEY_ID: "AKIAX5ESIVMADNZ4LBJV"
-    AWS_SECRET_ACCESS_KEY: "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"
-    S3_BUCKET: "kesowa-static-data"
-    S3_ENDPOINT: "s3.amazonaws.com"
-    S3_REGION: "ap-south-1"
-    S3_PATH_STYLE: "false"
-    AMQP_ADDR: "amqp://admin:admin123@rabbitmq:5672"
-    RUST_LOG: "debug"
-
+  S3_BUCKET: "kesowa-static-data"
+  S3_ENDPOINT: "s3.amazonaws.com"
+  S3_REGION: "ap-south-1"
+  S3_PATH_STYLE: "false"
+  RUST_LOG: "info"
 ---
-
 apiVersion: v1
 kind: ConfigMap
 metadata:
   name: vod-config
 data:
-    AWS_ACCESS_KEY_ID: "AKIAX5ESIVMADNZ4LBJV"
-    AWS_SECRET_ACCESS_KEY: "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"
-    S3_BUCKET: "kesowa-static-data"
-    S3_ENDPOINT: "s3.amazonaws.com"
-    S3_REGION: "ap-south-1"
-    S3_PATH_STYLE: "false"
-    AMQP_ADDR: "amqp://admin:admin123@rabbitmq:5672"
-    RUST_LOG: "debug"
+  S3_BUCKET: "kesowa-static-data"
+  S3_ENDPOINT: "s3.amazonaws.com"
+  S3_REGION: "ap-south-1"
+  S3_PATH_STYLE: "false"
+  RUST_LOG: "info"
 ---
-
 apiVersion: v1
 kind: ConfigMap
 metadata:
   name: report-config
 data:
-    ARU_INSTANCE: "aru"
-    TITILER_PUBLIC: "https://cog-aru.kesowa.com"
-    CLIENT_URL: "http://localhost:3000"
-    S3_ACCESS_KEY: "AKIAX5ESIVMADNZ4LBJV"
-    S3_SECRET_KEY: "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"
-    S3_BUCKET_NAME: "kesowa-static-data"
-    S3_ENDPOINT: "s3.amazonaws.com"
-    S3_REGION: "ap-south-1"
-    S3_PATH_STYLE: "false"
-    RABBITMQ_CONNECTION_STRING: "amqp://admin:admin123@rabbitmq:5672"
+  ARU_INSTANCE: "aru"
+  TITILER_PUBLIC: "https://cog-aru.kesowa.com"
+  CLIENT_URL: "https://aru.kesowa.com"
+  S3_BUCKET_NAME: "kesowa-static-data"
+  S3_ENDPOINT: "s3.amazonaws.com"
+  S3_REGION: "ap-south-1"
+  S3_PATH_STYLE: "false"

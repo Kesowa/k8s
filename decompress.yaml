@@ -25,3 +25,5 @@ spec:
         envFrom:
           - configMapRef:
               name: zip-config
+          - secretRef:
+              name: worker-secrets

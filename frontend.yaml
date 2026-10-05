@@ -18,6 +18,8 @@ spec:
         envFrom:
           - configMapRef:
               name: frontend-config
+          - secretRef:
+              name: frontend-secrets
         ports:
           - name: web
             containerPort: 80

@@ -1,0 +1,32 @@
+# Real secret manifests — NEVER commit these.
+# Use secrets.example.yaml as the template.
+secrets.yaml
+*-secrets.yaml
+*.secret.yaml
+secret.yaml
+
+# Local kubeconfig and credentials
+kubeconfig
+*.kubeconfig
+.kube/
+
+# Certificates and keys
+*.pem
+*.key
+*.crt
+*.p12
+*.pfx
+
+# Helm
+charts/*.tgz
+
+# Editors
+.vscode/
+.idea/
+*.swp
+
+# OS
+.DS_Store
+
+# Analysis output
+report/

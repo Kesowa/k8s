@@ -12,15 +12,17 @@ spec:
     metadata:
       protocol: amqp
       queueName: report.plot.req
-      host: amqp://admin:admin123@rabbitmq.default.svc.cluster.local:5672
       mode: QueueLength
       value: "1"
       activationValue: "0"
+    authenticationRef:
+      name: rabbitmq-trigger-auth
   - type: rabbitmq
     metadata:
       protocol: amqp
       queueName: report.block.req
-      host: amqp://admin:admin123@rabbitmq.default.svc.cluster.local:5672
       mode: QueueLength
       value: "1"
       activationValue: "0"
+    authenticationRef:
+      name: rabbitmq-trigger-auth

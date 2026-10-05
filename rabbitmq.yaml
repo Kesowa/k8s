@@ -24,9 +24,15 @@ spec:
           - name: "RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS"
             value: "-rabbit consumer_timeout 86400000"
           - name: RABBITMQ_DEFAULT_USER
-            value: "admin"
+            valueFrom:
+              secretKeyRef:
+                name: rabbitmq-secrets
+                key: RABBITMQ_DEFAULT_USER
           - name: RABBITMQ_DEFAULT_PASS
-            value: "admin123"
+            valueFrom:
+              secretKeyRef:
+                name: rabbitmq-secrets
+                key: RABBITMQ_DEFAULT_PASS
 ---
 apiVersion: v1
 kind: Service
